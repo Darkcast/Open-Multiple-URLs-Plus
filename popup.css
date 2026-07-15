@@ -1,0 +1,697 @@
+/* ==========================================================================
+   Modern Chrome Extension Reset & Dark Theme Variable definitions
+   ========================================================================== */
+:root {
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Modern Dark Color Palette */
+  --bg-app: #0b0f19; /* Ultra-deep dark slate/navy */
+  --bg-card: #151b2c; /* Sleek card background */
+  --text-main: #f8fafc; /* Crisp slate white */
+  --text-muted: #94a3b8; /* Soft slate gray */
+  
+  --primary: #3b82f6; /* Glowing neon blue */
+  --primary-hover: #60a5fa;
+  --primary-light: rgba(59, 130, 246, 0.15);
+  
+  --secondary: #1e293b; /* Dark slate button bg */
+  --secondary-hover: #334155;
+  --secondary-text: #e2e8f0;
+  
+  --accent-red: #f87171; /* High contrast red for destructive actions */
+  --accent-red-hover: #ef4444;
+  
+  --border-color: #223049; /* Deep blue-gray borders */
+  --border-color-hover: #3b4f74;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+  --radius: 8px;
+}
+
+/* Base Body Design */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Container (Sized perfectly for Chrome extensions) */
+.container {
+  width: 480px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   Header Styles
+   ========================================================================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+}
+
+.header-version {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--secondary);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   Form Fields & Input Area
+   ========================================================================== */
+.url-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Buttons & Interactive Action Bar
+   ========================================================================== */
+.action-bar {
+  display: flex;
+  align-items: center;
+}
+
+.action-normal,
+.action-busy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.action-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Live status pill shown while checking / opening (busy mode) */
+.busy-status {
+  flex: 1;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background-color: var(--primary-light);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: var(--primary-hover);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-busy .btn-cancel {
+  flex-shrink: 0;
+}
+
+/* Base button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Primary Button Action */
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(0.5px);
+}
+
+/* Secondary Button Action */
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-text);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+  border-color: var(--border-color-hover);
+}
+
+/* Cancel / Close Action Button */
+.btn-cancel {
+  background-color: rgba(248, 113, 113, 0.1);
+  color: var(--accent-red);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+.btn-cancel:hover {
+  background-color: rgba(248, 113, 113, 0.2);
+  color: var(--accent-red-hover);
+}
+
+/* Smaller size action button variants */
+.btn-sm {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* Indicator tab counter pill */
+#tab-count {
+  background-color: rgba(255, 255, 255, 0.15);
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* Warning indicator */
+.warning-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #fbbf24; /* Amber 400 */
+  background-color: rgba(251, 191, 36, 0.15); /* Translucent Amber */
+  border-radius: 50%;
+  cursor: help;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Progress Indicators
+   ========================================================================== */
+.progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: var(--bg-card);
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--secondary);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--primary);
+  border-radius: 9999px;
+  transition: width 0.2s ease-in-out;
+}
+
+.progress-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Advanced Results Section
+   ========================================================================== */
+.results-section {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-summary {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.results-list {
+  margin-top: 10px;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 6px;
+  background-color: var(--bg-app);
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.results-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Summary status pills (✓ alive / ! reachable / ⏱ timeout / ✗ dead) */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-right: 6px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pill-ok {
+  color: #4ade80;
+  background-color: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.pill-reachable {
+  color: #fbbf24;
+  background-color: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.pill-timeout {
+  color: #94a3b8;
+  background-color: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.pill-error {
+  color: var(--accent-red);
+  background-color: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+/* Individual check-result rows */
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 4px;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+.result-item:hover {
+  background-color: var(--secondary);
+}
+
+.result-badge {
+  flex-shrink: 0;
+  min-width: 42px;
+  text-align: center;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.result-ok .result-badge {
+  color: #4ade80;
+  background-color: rgba(74, 222, 128, 0.12);
+}
+
+.result-reachable .result-badge {
+  color: #fbbf24;
+  background-color: rgba(251, 191, 36, 0.12);
+}
+
+.result-timeout .result-badge {
+  color: #94a3b8;
+  background-color: rgba(148, 163, 184, 0.12);
+}
+
+.result-error .result-badge {
+  color: var(--accent-red);
+  background-color: rgba(248, 113, 113, 0.12);
+}
+
+.result-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--secondary-text);
+}
+
+.result-error .result-url,
+.result-timeout .result-url {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.result-time {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Divider styling */
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Custom Checkbox Options Section (Grid)
+   ========================================================================== */
+.options-section {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 16px;
+}
+
+/* Accessible, custom-designed checkboxes */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--secondary-text);
+  gap: 8px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Visual Custom Box mimicking input */
+.custom-checkbox {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: var(--bg-app);
+  border: 1.5px solid var(--border-color);
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+  flex-shrink: 0;
+}
+
+/* Checkbox Hover Effect */
+.checkbox-label:hover input[type="checkbox"] ~ .custom-checkbox {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+/* Checked Background */
+.checkbox-label input[type="checkbox"]:checked ~ .custom-checkbox {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Checkmark Graphic */
+.custom-checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Showing Checkmark when clicked */
+.checkbox-label input[type="checkbox"]:checked ~ .custom-checkbox:after {
+  display: block;
+}
+
+/* Position and form the indicator styling */
+.checkbox-label .custom-checkbox:after {
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Text & info label Alignment */
+.label-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-tip {
+  color: var(--text-muted);
+  cursor: help;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.info-tip:hover {
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   Dropdowns / Select Input Elements
+   ========================================================================== */
+.selects-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.select-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.select-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Style Select Menus */
+.select {
+  width: 100%;
+  padding: 8px 12px;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--secondary-text);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  outline: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+  appearance: none; /* Strip native stylings */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 32px;
+}
+
+.select:hover {
+  border-color: var(--border-color-hover);
+}
+
+.select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Smooth custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color-hover);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==========================================================================
+   Custom Tooltips (Replaces Microtip)
+   ========================================================================== */
+[role="tooltip"] {
+  position: relative;
+  cursor: help;
+}
+
+/* The Tooltip Bubble */
+[role="tooltip"]::after {
+  content: attr(aria-label);
+  position: absolute;
+  background-color: #f8fafc; /* Crisp white for high contrast */
+  color: #0b0f19; /* Deep dark text */
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+  width: max-content;
+  max-width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Top Position Tooltips */
+[data-microtip-position="top"]::after {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+}
+
+[data-microtip-position="top"]:hover::after,
+[data-microtip-position="top"]:active::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Bottom Position Tooltips — right-anchored so the bubble extends leftward
+   into the popup instead of spilling past the right edge (Chrome clips it). */
+[data-microtip-position="bottom"]::after {
+  top: calc(100% + 8px);
+  right: 0;
+  left: auto;
+  transform: translateY(-4px);
+}
+
+[data-microtip-position="bottom"]:hover::after,
+[data-microtip-position="bottom"]:active::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

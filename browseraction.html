@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Multiple URLs Plus</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header Section -->
+    <header class="header">
+      <div class="header-left">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+        <span class="header-title">Open Multiple URLs Plus</span>
+      </div>
+      <span class="header-version">v1.9.0</span>
+    </header>
+
+    <!-- URL Input Section -->
+    <section class="url-section">
+      <div class="label-wrapper">
+        <label for="urls" class="label">URLs / paste text to extract URLs from</label>
+      </div>
+      <textarea id="urls" spellcheck="false" placeholder="Paste URLs here, one per line..."></textarea>
+    </section>
+
+    <!-- Interactive Action Bar -->
+    <section class="action-bar">
+      <!-- Normal mode: extract / check / open -->
+      <div id="action-normal" class="action-normal">
+        <button id="btn-extract" class="btn btn-secondary">
+          Extract URLs
+        </button>
+        <div class="action-right">
+          <button id="btn-check" class="btn btn-secondary">Check URLs</button>
+          <button id="btn-open" class="btn btn-primary">
+            Open URLs <span id="tab-count"></span>
+          </button>
+          <span id="warning" class="warning-badge" style="display:none"
+                aria-label="Very large batch — tabs open 5 at a time with a 10s load timeout each."
+                role="tooltip" data-microtip-position="bottom" data-microtip-size="medium">ⓘ</span>
+        </div>
+      </div>
+      <!-- Busy mode: live status on the left, cancel on the right -->
+      <div id="action-busy" class="action-busy" style="display:none">
+        <span id="busy-status" class="busy-status">Working…</span>
+        <button id="btn-cancel-open" class="btn btn-cancel">Cancel</button>
+      </div>
+    </section>
+
+    <!-- Dynamic Progress Bar -->
+    <div id="progress-wrap" class="progress-wrap" style="display:none">
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <span id="progress-label" class="progress-label"></span>
+    </div>
+
+    <!-- URL Check Results Section -->
+    <section id="results-section" class="results-section" style="display:none">
+      <div id="results-summary" class="results-summary"></div>
+      <div id="results-list" class="results-list"></div>
+      <div id="results-actions" class="results-actions" style="display:none">
+        <button id="btn-open-alive" class="btn btn-primary btn-sm">Open alive</button>
+        <button id="btn-copy-results" class="btn btn-secondary btn-sm">Copy results</button>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Configurable Options Grid -->
+    <section class="options-section">
+      <div class="options-grid">
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-lazyload">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Lazy load tabs</span>
+          <span class="info-tip"
+                aria-label="Tabs only load when selected. Not supported for: file, chrome, moz-extension, edge URLs."
+                role="tooltip" data-microtip-position="top" data-microtip-size="large">ⓘ</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-random">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Random order</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-reverse">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Reverse order</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-deduplicate">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Remove duplicates</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-searchquery">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Non-URLs as searches</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-newwindow">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Open in new window</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="opt-preserve">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Preserve input</span>
+        </label>
+        <label class="checkbox-label" style="grid-column: span 2;">
+          <input type="checkbox" id="opt-precheck">
+          <span class="custom-checkbox"></span>
+          <span class="label-text">Skip unreachable URLs before opening</span>
+          <span class="info-tip"
+                aria-label="Probes each URL with a HEAD request before creating a tab. Slower but avoids opening dead URLs."
+                role="tooltip" data-microtip-position="top" data-microtip-size="large">ⓘ</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Dropdown / Select Section -->
+    <section id="selects-section" class="selects-section">
+      <div id="tabgroup-wrap" style="display:none" class="select-wrap">
+        <label class="select-label" for="tabGroupSelection">Tab group</label>
+        <div class="select-container">
+          <select id="tabGroupSelection" class="select"></select>
+        </div>
+      </div>
+      <div id="container-wrap" style="display:none" class="select-wrap">
+        <label class="select-label" for="containerSelection">Container</label>
+        <div class="select-container">
+          <select id="containerSelection" class="select"></select>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

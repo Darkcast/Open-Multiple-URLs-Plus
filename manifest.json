@@ -1,0 +1,26 @@
+{
+  "name": "Open Multiple URLs Plus",
+  "version": "1.9.0",
+  "manifest_version": 3,
+  "description": "Opens a list of URLs",
+  "homepage_url": "https://github.com/Darkcast/Open-Multiple-URLs-Plus",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_icon": "icon19.png",
+    "default_popup": "browseraction.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "commands": {
+    "_execute_action": {}
+  },
+  "permissions": ["storage", "tabGroups", "search", "windows"],
+  "host_permissions": ["<all_urls>"],
+  "incognito": "split"
+}
