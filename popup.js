@@ -77,7 +77,12 @@ function extractURLs(text) {
   const urls = [];
 
   function add(raw) {
-    const norm = normalizeURL(raw);
+    // Pass 1 matches (e.g. bare "www.example.com") can lack a schema; normalizeURL
+    // silently no-ops without one, which let the same host slip in twice under two
+    // different seen-keys ("www.x.com" vs "http://www.x.com/"). Force a schema first
+    // so every match dedupes on the same normalized form.
+    const withSchema = hasValidSchema(raw) ? raw : 'http://' + raw;
+    const norm = normalizeURL(withSchema);
     if (!seen.has(norm)) { seen.add(norm); urls.push(norm); }
   }
 
@@ -186,7 +191,11 @@ async function checkUrl(rawUrl) {
     const s = res.status;
     // tier: alive = 2xx/3xx  |  reachable = 4xx/5xx (server up, resource broken)  |  dead = no connection
     const tier = (s >= 200 && s < 400) ? 'alive' : 'reachable';
-    return { url, status: s, tier, ok: tier === 'alive', time: Date.now() - start };
+    // ok = "not unreachable": the precheck/"Skip unreachable URLs" gate and "Open alive"
+    // only need to know the server responded at all. A 404/503 is a live server, just an
+    // error page — excluding it here contradicted the "unreachable" label and, for
+    // WAF/SSO-fronted sites that answer non-2xx to an anonymous probe, dropped every URL.
+    return { url, status: s, tier, ok: true, time: Date.now() - start };
   } catch (err) {
     clearTimeout(timer);
     const tier = err.name === 'AbortError' ? 'timeout' : 'dead';
